@@ -19,8 +19,8 @@ description: > # this means to ignore newlines until "baseurl:"
   执笔记字，让思绪从纸上淌过，留下些许轻微的痕迹
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+#twitter_username: jekyllrb
+github_username:  yrsc
 
 # Build settings
 markdown: kramdown
