@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-04-21T09:23:13+08:00</updated><id>http://localhost:4000/</id><title type="html">游戏思想录</title><subtitle>执笔记字，让思绪从纸上淌过，留下些许轻微的痕迹
+</subtitle><entry><title type="html">游戏大版本更新和热更新</title><link href="http://localhost:4000/2017/04/17/%E6%B8%B8%E6%88%8F%E5%A4%A7%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E5%92%8C%E7%83%AD%E6%9B%B4%E6%96%B0.html" rel="alternate" type="text/html" title="游戏大版本更新和热更新" /><published>2017-04-17T00:00:00+08:00</published><updated>2017-04-17T00:00:00+08:00</updated><id>http://localhost:4000/2017/04/17/%E6%B8%B8%E6%88%8F%E5%A4%A7%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E5%92%8C%E7%83%AD%E6%9B%B4%E6%96%B0</id><content type="html" xml:base="http://localhost:4000/2017/04/17/%E6%B8%B8%E6%88%8F%E5%A4%A7%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E5%92%8C%E7%83%AD%E6%9B%B4%E6%96%B0.html">&lt;h1 id=&quot;游戏大版本更新和热更新&quot;&gt;游戏大版本更新和热更新&lt;/h1&gt;
+&lt;p&gt;游戏上线后，遇见bug或者需要更新内容（包括资源，玩法，数值调整，游戏脚本等）的时候，一般有2种做法。第一种，发个新包，然后让玩家下载新的版本；第二种，在游戏内更新，游戏启动时去下载需要更新的资源。第一种我们一般称为游戏大版本更新，第二种称为热更新。&lt;/p&gt;
+
+&lt;p&gt;一般来说，不能通过小版本更新解决的问题，才会用到大版本更新，例如，不可热更的游戏代码。而热更新是建立在每次大版本更新的基础上进行的更新，因此，这2种更新方式应该互相承接。&lt;/p&gt;
+
+&lt;p&gt;我们可以通过版本文件和更新文件以及版本号来实现大版本更新和热更新。游戏的版本号由大 版本+资源版本 构成，每一次大版本更新，大版本号增加，资源版本号重置。每一次热更新，大版本号不变，资源版本号增加。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;版本文件（MD5File）记录每一个资源的MD5值。&lt;/em&gt;&lt;/strong&gt;
+&lt;strong&gt;&lt;em&gt;例如：&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a.txt,1630d23f45464df6071a9948dd1592bf
+b.texture,f9c985a8f2a86292a024c4ed21ed33fb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;更新文件(UpdateFile)记录每一个更新文件的资源版本号，资源版本号对应玩家去服务器上哪个版本库里下载资源。&lt;/em&gt;&lt;/strong&gt;
+&lt;strong&gt;&lt;em&gt;例如：&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; a.txt,0.1
+ c.txt,0.2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;大版本更新流程&quot;&gt;大版本更新流程&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;清除之前的版本文件和更新文件&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;打包所有的资源&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;计算每个资源的MD5值，创建新的版本文件，将所有资源的资源名称和对应的MD5值保存在版本文件中。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;热更新流程&quot;&gt;热更新流程&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;打包所有资源&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;计算每个资源的MD5值，并和版本文件中记录的MD5值做比较，将MD5值发生变化的资源和被删除的资源记录下来.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;判断是否存在更新文件:
+  如果不存在更新文件，即现在是在大版本后的第一次热更新，创建一个更新文件，将所有MD5值发生变化的资源的名称和其版本号记录在更新文件中,格式为为【文件名，当前资源版本号】。
+  如果已经存在更新文件，即现在是在上一次热更新之后继续热更新。首先读取上一次的更新文件，然后遍历本次MD5值发生变化的资源，如果资源名称在更新文件中存在，则将更新文件中该资源版本号置为当前版本；如果资源名称在更新文件中不存在，则在更新文件中添加新的记录，存放其资源名称和当前资源版本号；如果更新文件中存在被删除的资源名称，将该资源的记录从更新文件中移除。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;上传需要更新的资源和更新文件（UpdateFile）到服务器&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;删除原来的版本文件，将所有资源的MD5值保存在新的版本文件中。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;玩家进入游戏后，首先判断是否需要更新版本，如果是大版本更新，则提示需要重新下载安装包；如果是小版本更新，则先下载更新文件（UpdateFile），然后根据更新文件中的资源名和版本号去对应的地址下载资源。&lt;/p&gt;
+
+&lt;p&gt;服务器下载目录结构&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;UpdateFile.txt
+
+0.1（资源版本号文件夹）
+
+-------a.txt
+
+0.2（资源版本号文件夹）
+
+-------a.txt
+
+-------c.txt
+
+0.3（资源版本号文件夹）
+
+-------a.txt
+
+-------d.txt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;假设UpdatFile.txt内容为:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a.txt,0.3
+
+c.txt,0.2
+
+d.txt,0.3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;如果玩家的版本是0.1，则玩家需要去0.3的目录下下载a.txt和d.txt，去0.2的目录下下载c.txt.。&lt;/p&gt;
+
+&lt;p&gt;如果玩家的版本是0.2，则玩家只需要去0.3的目录下下载a.txt和d.txt。&lt;/p&gt;
+
+&lt;p&gt;通常会在客户端缓存玩家下载过的资源和版本号，然后与updateFile文件做对比，生成需要下载的文件列表，然后去服务器下载即可。&lt;/p&gt;</content><author><name></name></author><summary type="html">游戏大版本更新和热更新 游戏上线后，遇见bug或者需要更新内容（包括资源，玩法，数值调整，游戏脚本等）的时候，一般有2种做法。第一种，发个新包，然后让玩家下载新的版本；第二种，在游戏内更新，游戏启动时去下载需要更新的资源。第一种我们一般称为游戏大版本更新，第二种称为热更新。</summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2017/04/16/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2017-04-16T22:42:52+08:00</published><updated>2017-04-16T22:42:52+08:00</updated><id>http://localhost:4000/jekyll/update/2017/04/16/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/04/16/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry></feed>
