@@ -4,12 +4,10 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+也不知道About写一些什么，写点读后感吧，监督下自己的读书进度，大家有好书也欢迎推荐给我。
+## 已读书单及读后感
++ 《小岛经济学》 读后感：生产力的提升造就的经济繁荣才是可持续的，没有产能的经济繁荣都是假象。
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jekyll" %} /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+## 待读书单
++ 《数学之美》
++ 《未来间史》
