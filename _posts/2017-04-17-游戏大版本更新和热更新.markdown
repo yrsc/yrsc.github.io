@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 游戏大版本更新和热更新
+tag: 游戏热更新
 ---
 
 游戏上线后，遇见bug或者需要更新内容（包括资源，玩法，数值调整，游戏脚本等）的时候，一般有2种做法。第一种，发个新包，然后让玩家下载新的版本；第二种，在游戏内更新，游戏启动时去下载需要更新的资源。第一种我们一般称为游戏大版本更新，第二种称为热更新。
@@ -78,4 +79,4 @@ d.txt,30d23f45464df6071a9948dd1592bfx2，0.3
 
 通常通过上次下载的版本文件与这次版本文件做对比，生成需要下载的文件列表，然后去服务器下载即可。
 
-工程地址参见：<https://github.com/yrsc/AssetBundleFramework>
+工程地址参见：<a href="https://github.com/yrsc/AssetBundleFramework" target="_blank">https://github.com/yrsc/AssetBundleFramework</a>
