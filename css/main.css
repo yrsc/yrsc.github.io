@@ -145,7 +145,7 @@ p {
   margin-bottom: 10px;
   margin-top: 5px;
   line-height: 1.7em; 
-  padding-left: 20px;
+  /*padding-left: 20px;*/
 }
 
 strong {
@@ -341,7 +341,7 @@ img::-moz-selection {
   }
 
   .excerpt {
-    border-left: 3px solid #458B74; 
+   /* border-left: 3px solid #458B74; */
     margin: 0;
     margin-right: 10px;
     font-size: .9em;
@@ -645,8 +645,9 @@ img::-moz-selection {
   .btn-border-small {
     font-size: 1.0em;
     height: 30px;
-    margin-left: 20px; 
-    color: #458B74;
+   /* margin-left: 20px; */
+    color: #333333;
+    text-decoration:underline;
   }
 
   .btn-secondary {
@@ -814,6 +815,7 @@ img::-moz-selection {
     margin: 0 0 2.2em 0;
     float: left;
 
+/*
     -moz-box-shadow:4px 4px 4px #efefef, 
     -4px -4px 4px #efefef, 
     4px -4px 4px #efefef, 
@@ -825,10 +827,11 @@ img::-moz-selection {
     box-shadow:4px 4px 4px #efefef, 
     -4px -4px 4px #efefef, 
     4px -4px 4px #efefef, 
-    -4px 4px 4px #efefef;
+    -4px 4px 4px #efefef;*/
   }
   .post-list li:hover {
     /*transform:scale(1.01,1.01); */
+    /*
     -moz-box-shadow:4px 4px 4px #c9e1f6, 
     -4px -4px 4px #c9e1f6, 
     4px -4px 4px #c9e1f6, 
@@ -841,6 +844,7 @@ img::-moz-selection {
     -4px -4px 4px #c9e1f6, 
     4px -4px 4px #c9e1f6, 
     -4px 4px 4px #c9e1f6;
+    */
     /*background-color: #F5FFFA;*/
   }
 
@@ -849,15 +853,17 @@ img::-moz-selection {
   }
 
   .post-list__post-title {
-   margin-top: 5px;
+   margin-top: 10px;
     margin-bottom: .2em;
     font-size: 1.5em;
     line-height: 1.3em;
   }
   .post-list__post-title a {
+   border-left: 5px solid #DDDDDD;
    color: #333333; 
-   padding-top: 5px;
-   padding-left: 10px;
+
+   /*padding-top: 2px;*/
+   padding-left: 7px;
   }
   .post-list__post-title a:hover {
     color: #000000; 
@@ -867,7 +873,7 @@ img::-moz-selection {
 
 .post-list__meta {
   display: block;
-  margin: .7em 0 0 0;
+  /*margin: .7em 0 0 0;*/
   font-size: .9em;
   color: #c7c7c7; 
   display: inline-block;
@@ -883,11 +889,12 @@ img::-moz-selection {
 
 .post-list__meta--date {
   margin-right: .5em;
-  margin-left: 10px;
+  /*margin-left: 10px;*/
   margin-top: 3px;
-  color: #c7c7c7; 
+  color: #666666; 
   float: left;
-
+  font-size: 15px;
+  font-style: bold;
 }
 
 .post-list__meta--tags {
@@ -928,8 +935,8 @@ img::-moz-selection {
 }
 
 .post-list__divider {
-  width: 30%;
-  margin: 2.2em 0 2.1em 0;
+  width: 100%;
+  margin: 3em 0 1.5em 0;
   border-top: 1px solid #DDDDDD; }
 
 *:focus {
