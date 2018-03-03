@@ -41,9 +41,9 @@ public class ShadowCameraGenerator : MonoBehaviour
 }
 ```
 使用Projector来实现阴影时，需要注意的几点：
-1、传递给Projector材质的RenderTexture必须是clamp模式，但是如果阴影到了RenderTexture边缘的像素，因为是Clamp的原因，地板就会出现整个长条形的阴影，解决方案可以通过给projector材质添加mask图来处理边缘的像素。
-2、使用阴影相机时，设置replaceshader,因为只需要物体的alpha信息，因此阴影相机渲染时使用最简单的shader即可。
-3、RenderTexture的大小会决定阴影的质量，图越小，阴影质量越差。
+1. 传递给Projector材质的RenderTexture必须是clamp模式，但是如果阴影到了RenderTexture边缘的像素，因为是Clamp的原因，地板就会出现整个长条形的阴影，解决方案可以通过给projector材质添加mask图来处理边缘的像素。
+2. 使用阴影相机时，设置replaceshader,因为只需要物体的alpha信息，因此阴影相机渲染时使用最简单的shader即可。
+3. RenderTexture的大小会决定阴影的质量，图越小，阴影质量越差。
 
 Projector Shader
 ```
